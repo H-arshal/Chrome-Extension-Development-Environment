@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "ExtensionFlow Helper",
+  "version": "1.0.0",
+  "description": "Internal extension management and reload controller for ExtensionFlow",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxBY+4z45SBd2H0p9i2l5a7gMDBMYxGUuxeZarRyP51SqXi1ZAlikvJVii++h0Z7l87ZRXHSNlQxyinNjpAw28gW9WUfQgLApPbwVnVs2ulN2LutGfVTP1gzV3oImfQ0mcIUpz4KrZ+q5SrL45PX23yG6glYaWTnLh5mpgDd9wZvPF9+zGFLTZJ8p/ku09AoK7N+TnKzRo5Hr+pIg97hSuFnwbkheXTSZ+xSPuBzGIRHlzDbeF7np0byj9jP+1nPNijMudmlVzGjypd2UDqSfIodTRIOmB1eJdcDqvjkllgt8pBfjfoMJA78M9gdNo9VO9Nj9qQxPBB2lRGANyi1QpwIDAQAB",
+  "permissions": [
+    "management"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

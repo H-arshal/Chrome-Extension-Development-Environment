@@ -1,0 +1,29 @@
+{
+  "name": "extensionflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VS Code Extension Development Environment for Chrome Extensions",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "bundle": "npm run bundle --workspace=extensionflow",
+    "package": "npm run vscode:package --workspace=extensionflow",
+    "spike:s1": "tsx scripts/spikes/s1-cft-cdp-launch.ts",
+    "spike:s2": "tsx scripts/spikes/s2-helper-reload-storage.ts",
+    "spike:s3": "tsx scripts/spikes/s3-e2e-content-script-reload.ts",
+    "spike:s7": "tsx scripts/spikes/s7-process-cleanup.ts",
+    "spikes:all": "tsx scripts/spikes/run-all-spikes.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@puppeteer/browsers": "^2.7.1",
+    "@types/node": "^22.13.0",
+    "@vscode/vsce": "^4.0.0",
+    "puppeteer-core": "^24.3.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

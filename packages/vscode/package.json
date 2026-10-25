@@ -1,0 +1,183 @@
+{
+  "name": "extensionflow",
+  "displayName": "ExtensionFlow",
+  "description": "Instant Chrome Extension development environment with live reload and VS Code diagnostics",
+  "version": "0.1.0",
+  "publisher": "extensionflow",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/extensionflow/extensionflow"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers",
+    "Testing"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/manifest.json",
+    "onCommand:extensionflow.selectRoot",
+    "onCommand:extensionflow.runDoctor",
+    "onCommand:extensionflow.start"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "extensionflow",
+          "title": "ExtensionFlow",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "extensionflow": [
+        {
+          "id": "extensionflow.projectOverview",
+          "name": "Project Overview"
+        },
+        {
+          "id": "extensionflow.components",
+          "name": "Components & Match Patterns"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extensionflow.start",
+        "title": "Start Browser Session",
+        "category": "ExtensionFlow",
+        "icon": "$(play)"
+      },
+      {
+        "command": "extensionflow.stop",
+        "title": "Stop Browser Session",
+        "category": "ExtensionFlow",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "extensionflow.restart",
+        "title": "Restart Browser Session",
+        "category": "ExtensionFlow",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "extensionflow.reload",
+        "title": "Reload Extension",
+        "category": "ExtensionFlow",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "extensionflow.reloadWithTabs",
+        "title": "Reload Extension & Refresh Matching Tabs",
+        "category": "ExtensionFlow"
+      },
+      {
+        "command": "extensionflow.rebuild",
+        "title": "Rebuild Extension",
+        "category": "ExtensionFlow"
+      },
+      {
+        "command": "extensionflow.selectRoot",
+        "title": "Select Extension Root Folder",
+        "category": "ExtensionFlow"
+      },
+      {
+        "command": "extensionflow.runDoctor",
+        "title": "Run Doctor (Health & Environment Check)",
+        "category": "ExtensionFlow"
+      },
+      {
+        "command": "extensionflow.clearProfile",
+        "title": "Clear Browser Profile",
+        "category": "ExtensionFlow"
+      },
+      {
+        "command": "extensionflow.openPopupPreview",
+        "title": "Open Popup Preview Tab",
+        "category": "ExtensionFlow"
+      }
+    ],
+    "configuration": {
+      "title": "ExtensionFlow",
+      "properties": {
+        "extensionflow.extensionRoot": {
+          "type": "string",
+          "default": "auto",
+          "description": "Folder containing manifest.json ('auto' detects automatically)"
+        },
+        "extensionflow.browser.path": {
+          "type": "string",
+          "default": "",
+          "description": "Custom path to Chromium or Chrome binary (leave empty to use managed CfT)"
+        },
+        "extensionflow.browser.channel": {
+          "type": "string",
+          "default": "stable",
+          "description": "Managed Chrome for Testing channel ('stable', 'beta', 'canary') or pinned build ID"
+        },
+        "extensionflow.browser.profileMode": {
+          "type": "string",
+          "enum": [
+            "persistent",
+            "ephemeral"
+          ],
+          "default": "persistent",
+          "description": "Profile persistence mode across restarts"
+        },
+        "extensionflow.mode": {
+          "type": "string",
+          "enum": [
+            "managed",
+            "observe-only"
+          ],
+          "default": "managed",
+          "description": "Session mode: 'managed' triggers reloads, 'observe-only' coexists with external dev servers"
+        },
+        "extensionflow.watch.debounceMs": {
+          "type": "number",
+          "default": 300,
+          "description": "Debounce delay (ms) for file watching before triggering reload"
+        },
+        "extensionflow.build.mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "onChange",
+            "externalWatcher"
+          ],
+          "default": "none",
+          "description": "Build automation mode: 'none', 'onChange' (runs build command on save), or 'externalWatcher'"
+        },
+        "extensionflow.build.command": {
+          "type": "string",
+          "default": "",
+          "description": "Command to run when build mode is 'onChange' (e.g. 'npm run build')"
+        },
+        "extensionflow.build.outputDir": {
+          "type": "string",
+          "default": "",
+          "description": "Optional build output directory to watch (e.g. 'dist')"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -b --noEmit && npm run bundle",
+    "watch": "tsc -b -w",
+    "sync:helper": "node -e \"const fs = require('fs'); fs.cpSync('../helper-extension', 'helper-extension', { recursive: true });\"",
+    "bundle": "npm run sync:helper && esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --main-fields=module,main",
+    "vscode:package": "npm run bundle && vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@extensionflow/core": "*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.7.3"
+  }
+}

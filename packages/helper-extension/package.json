@@ -1,0 +1,6 @@
+{
+  "name": "@extensionflow/helper-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Internal ExtensionFlow Helper for extension management and reloads"
+}

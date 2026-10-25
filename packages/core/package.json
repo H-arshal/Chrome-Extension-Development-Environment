@@ -1,0 +1,26 @@
+{
+  "name": "@extensionflow/core",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@puppeteer/browsers": "^2.7.1",
+    "chokidar": "^4.0.3",
+    "jsonc-parser": "^3.3.1",
+    "picomatch": "^4.0.2",
+    "puppeteer-core": "^24.3.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/picomatch": "^4.0.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
